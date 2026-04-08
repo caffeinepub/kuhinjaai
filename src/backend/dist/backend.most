@@ -1,0 +1,69 @@
+// Version: 1.0.0
+type Category__368542034 = {#deserti; #glavnaJela; #pica; #predjela};
+type CollabNote__84613989 =
+  {
+    createdAt : Int;
+    id : NoteId__80549505;
+    recipeId : RecipeId__673747895;
+    text : Text
+  };
+type Cuisine__769880200 =
+  {#azijska; #francuska; #hrvatska; #ostalo; #talijanska};
+type DietaryTag__514507171 = {#bezGlutena; #veganski; #vegetarijansko};
+type FlagId__774803143 = Nat;
+type FlagStatus__788662428 = {#otvoreno; #rijeseno};
+type ImprovementFlag__644941598 =
+  {
+    createdAt : Int;
+    description : Text;
+    id : FlagId__774803143;
+    recipeId : RecipeId__673747895;
+    status : FlagStatus__788662428
+  };
+type Ingredient__517178051 = {name : Text; quantity : Text; unit : Text};
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NoteId__80549505 = Nat;
+type RecipeId__673747895 = Nat;
+type Recipe__767283240 =
+  {
+    category : Category__368542034;
+    cookTime : Nat;
+    createdAt : Int;
+    cuisine : Cuisine__769880200;
+    dietaryTags : [DietaryTag__514507171];
+    id : RecipeId__673747895;
+    ingredients : [Ingredient__517178051];
+    prepTime : Nat;
+    servings : Nat;
+    steps : [Text];
+    title : Text;
+    updatedAt : Int
+  };
+actor {
+  stable flags :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ImprovementFlag__644941598]];
+      var elementIndex : Nat__490723111
+    };
+  stable notes :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?CollabNote__84613989]];
+      var elementIndex : Nat__490723111
+    };
+  stable recipes :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Recipe__767283240]];
+      var elementIndex : Nat__490723111
+    };
+  stable state :
+    {
+      var initialized : Bool;
+      var nextFlagId : Nat;
+      var nextNoteId : Nat;
+      var nextRecipeId : Nat
+    }
+};

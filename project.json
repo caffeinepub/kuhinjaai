@@ -1,0 +1,21 @@
+{
+  "overview": "KuhinjaAI is a Croatian-language restaurant recipe app with AI-powered dish suggestions, collaborative recipe development, and full recipe management — no login required.",
+  "features": [
+    "AI-powered dish suggestions based on available ingredients",
+    "Full recipe management — add, edit, delete",
+    "Browse and filter recipes by category, cuisine, and dietary needs",
+    "Collaborative notes and improvement flags on recipes",
+    "Fully in Croatian language",
+    "No account or login needed"
+  ],
+  "category": "food-hospitality",
+  "tags": [
+    "recipes",
+    "restaurant",
+    "ai",
+    "croatian",
+    "food",
+    "collaborative"
+  ],
+  "last_updated": "2026-04-08T19:10:04.180Z"
+}

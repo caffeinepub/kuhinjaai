@@ -1,0 +1,115 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type RecipeInput = 
+ record {
+   category: Category;
+   cookTime: nat;
+   cuisine: Cuisine;
+   dietaryTags: vec DietaryTag;
+   ingredients: vec Ingredient;
+   prepTime: nat;
+   servings: nat;
+   steps: vec text;
+   title: text;
+ };
+type RecipeId = nat;
+type Recipe = 
+ record {
+   category: Category;
+   cookTime: nat;
+   createdAt: int;
+   cuisine: Cuisine;
+   dietaryTags: vec DietaryTag;
+   id: RecipeId;
+   ingredients: vec Ingredient;
+   prepTime: nat;
+   servings: nat;
+   steps: vec text;
+   title: text;
+   updatedAt: int;
+ };
+type NoteId = nat;
+type Ingredient = 
+ record {
+   name: text;
+   quantity: text;
+   unit: text;
+ };
+type ImprovementFlag = 
+ record {
+   createdAt: int;
+   description: text;
+   id: FlagId;
+   recipeId: RecipeId;
+   status: FlagStatus;
+ };
+type FlagStatus = 
+ variant {
+   otvoreno;
+   rijeseno;
+ };
+type FlagId = nat;
+type DietaryTag = 
+ variant {
+   bezGlutena;
+   veganski;
+   vegetarijansko;
+ };
+type Cuisine = 
+ variant {
+   azijska;
+   francuska;
+   hrvatska;
+   ostalo;
+   talijanska;
+ };
+type CollabNote = 
+ record {
+   createdAt: int;
+   id: NoteId;
+   recipeId: RecipeId;
+   "text": text;
+ };
+type Category = 
+ variant {
+   deserti;
+   glavnaJela;
+   pica;
+   predjela;
+ };
+service : {
+  addFlag: (recipeId: RecipeId, description: text) -> (ImprovementFlag);
+  addNote: (recipeId: RecipeId, "text": text) -> (CollabNote);
+  createRecipe: (input: RecipeInput) -> (Recipe);
+  deleteNote: (noteId: NoteId) -> (bool);
+  deleteRecipe: (id: RecipeId) -> (bool);
+  getAllRecipes: () -> (vec Recipe) query;
+  getFlagsForRecipe: (recipeId: RecipeId) -> (vec ImprovementFlag) query;
+  getNotesForRecipe: (recipeId: RecipeId) -> (vec CollabNote) query;
+  getRecipe: (id: RecipeId) -> (opt Recipe) query;
+  resolveFlag: (flagId: FlagId) -> (bool);
+  suggestRecipes: (ingredients: vec text, dietaryRestrictions: vec text) ->
+   (text);
+  transform: (input: TransformationInput) -> (TransformationOutput) query;
+  updateRecipe: (id: RecipeId, input: RecipeInput) -> (bool);
+}
